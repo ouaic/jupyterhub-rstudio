@@ -18,6 +18,7 @@ make
 make install
 
 maxima --batch-string="load(\"load-maxima-jupyter.lisp\");jupyter_system_install(true, \"pkg/\");"
+cp -r pkg/* /
 
 # clean files
 set -e
