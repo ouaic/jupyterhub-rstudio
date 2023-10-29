@@ -1,4 +1,5 @@
 #!/bin/bash
+#set -e
 
 # install sbcl
 sbcl --non-interactive --load /usr/share/common-lisp/source/quicklisp/quicklisp.lisp \
@@ -17,10 +18,12 @@ cd build
 make
 make install
 
-maxima --batch-string="load(\"load-maxima-jupyter.lisp\");jupyter_system_install(true, \"pkg/\");"
-cp -r pkg/* /
+cd
+git clone https://github.com/robert-dodier/maxima-jupyter.git
+cd maxima-jupyter
+maxima --batch-string="load(\"load-maxima-jupyter.lisp\");jupyter_install();"
 
 # clean files
-set -e
+cd
 rm -f  [0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
 rm -f README.md apt.txt environment.yml postBuild
