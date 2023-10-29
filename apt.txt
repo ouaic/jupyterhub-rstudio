@@ -1,3 +1,4 @@
 sbcl
 cl-quicklisp
+texinfo
 gnuplot
