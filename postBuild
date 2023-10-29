@@ -1,4 +1,25 @@
 #!/bin/bash
+
+# install sbcl
+sbcl --non-interactive --load /usr/share/common-lisp/source/quicklisp/quicklisp.lisp \
+  --eval "(quicklisp-quickstart:install)" \
+  --eval "(ql-util:without-prompting (ql:system-apropos \"vecto\"))" \
+  --eval "(ql-util:without-prompting (ql:quickload \"vecto\"))" \
+  --eval "(ql-util:without-prompting (ql:add-to-init-file))"
+
+# install maxima
+wget https://sourceforge.net/projects/maxima/files/Maxima-source/5.47.0-source/maxima-5.47.0.tar.gz
+tar xf maxima-5.47.0.tar.gz
+cd maxima-5.47.0
+mkdir build
+cd build
+../configure --enable-sbcl
+make
+make install
+
+maxima --batch-string="load(\"load-maxima-jupyter.lisp\");jupyter_system_install(true, \"pkg/\");"
+
+# clean files
 set -e
 rm -f  [0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
 rm -f README.md apt.txt environment.yml postBuild
